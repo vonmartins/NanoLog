@@ -1,4 +1,6 @@
-# NanoLog Project Status
+# NanoLog 
+
+Currently under development...
 
 ## Overview
 
