@@ -127,4 +127,8 @@
  */
 #define _MARKDOWN_              "md"
 
+
+#define MAX_TAG_SIZE    16
+#define MAX_DESC_SIZE   128
+
 #endif // __NLOG_CONFIG__

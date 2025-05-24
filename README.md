@@ -3,6 +3,7 @@
 ## Overview
 
 NanoLog is a lightweight logging system designed for embedded systems. The project focuses on providing a flexible, configurable logging library that:
+
 - Supports multiple log levels (Error, Warning, Info, Debug)
 - Allows configuration through compile-time macros
 - Enables colored output, timestamping, and various output backends (terminal, file, UART, memory buffer, network)
@@ -41,12 +42,15 @@ NanoLog is a lightweight logging system designed for embedded systems. The proje
 
 ## Remaining Tasks and Future Updates
 
+- **Process Functions like PROCESS(wifi_init())**
+PROCESS(X) will manage the status return if its error, etc
+
 - **UART Backend Implementation**:  
   The UART output option is currently a placeholder. Implementation for UART should be added to support logging via serial interfaces.
 
 - **Network Backend Implementation**:
 
-    Send to UDP/TCP direction? 
+    Send to UDP/TCP direction?
 
 - **Buffer Management and Ring Buffer Support**:  
   - Implement support for circular (ring) buffers to temporarily store logs in memory.
@@ -56,10 +60,12 @@ NanoLog is a lightweight logging system designed for embedded systems. The proje
 - **Documentation and Examples**:  
   Continue enhancing the documentation (both inline and external) and provide sample projects to demonstrate how to integrate and use NanoLog in various scenarios.
 
+Funcion que convierta HAL_StatusTypeDef de stm32 a err_t
 
 -------
 
 Que hará?
+
 - Ejecutar función y mostrar resultado: error, no error, etc 
 - Niveles de log: error, warning, info, debug
 - TAGs para realizar distintos logs

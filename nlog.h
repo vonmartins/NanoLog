@@ -37,6 +37,17 @@ enum nlog_level {
     DEBUG     /*!< Debug level logging */
 };
 
+typedef enum {
+    DEVICE_OK,
+    DEVICE_ERROR
+} dev_err;
+
+typedef struct {
+    dev_err res;
+    char tag[MAX_TAG_SIZE];
+    char desc[MAX_DESC_SIZE];
+} err_t;
+
 /* *****************************************************************************
  *                             Public Macros
  * *****************************************************************************
@@ -70,7 +81,7 @@ enum nlog_level {
  * @brief Log an info message.
  *
  * If ENABLE_INFO_LOGS is nonzero, the macro calls nlog_messagev() with level INFO.
- * Otherwise, it expande to a no-operation.
+ * Otherwise, it expands to a no-operation.
  */
 #if ENABLE_INFO_LOGS
     #define LOGI(TAG, fmt, ...) nlog_messagev(INFO, TAG, fmt, ##__VA_ARGS__)
@@ -89,6 +100,35 @@ enum nlog_level {
 #else
     #define LOGD(TAG, fmt, ...) (void)0
 #endif
+
+#define CREATE_ERROR(_name, _tag, _desc) \
+    ((err_t){.res = _name, .tag = _tag, .desc = _desc})
+
+/**
+ * @brief Processes the result of a function and logs a message based on the result.
+ *
+ * This macro executes a function that returns an error (of type `err_t`).
+ * If the result is not `DEVICE_OK`, it logs the error using NanoLog,
+ * including the `tag` and the error description.
+ * If the result is `DEVICE_OK` and the debug level is enabled,
+ * it logs a success message indicating which function was executed successfully.
+ *
+ * @param fn The function to execute.
+ */
+#define ERROR_CHECK(fn)                                      \
+do {                                                          \
+    err_t _result = (fn);                                     \
+    if (_result.res != DEVICE_OK) {                           \
+        LOGE(_result.tag, "Error in function '%s': %s", #fn, _result.desc); \
+    } else {                                                  \
+        LOGI(_result.tag, "Success in function '%s'", #fn);   \
+    }                                                         \
+} while (0)
+
+/* *****************************************************************************
+ *                          Private Function Prototypes
+ * *****************************************************************************
+ */
 
 /* *****************************************************************************
  *                          Public Function Prototypes
@@ -110,8 +150,3 @@ enum nlog_level {
 void nlog_messagev(const enum nlog_level level, const char *TAG, const char *fmt, ...);
 
 #endif // __NLOG__
-
-
-
-
-
