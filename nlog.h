@@ -102,14 +102,13 @@ typedef struct {
     #define LOGD(TAG, fmt, ...) (void)0
 #endif
 
-#define CREATE_ERROR(_name, _tag, _desc) ({                     \
-    err_t _error;                                               \
-    _error.res = _name;                                         \
-    strncpy(_error.tag, _tag, MAX_TAG_SIZE - 1);                \
-    _error.tag[MAX_TAG_SIZE - 1] = '\0';                        \
-    strncpy(_error.desc, _desc, MAX_DESC_SIZE - 1);             \
-    _error.desc[MAX_DESC_SIZE - 1] = '\0';                      \
-    _error;                                                     \
+#define CREATE_ERROR(_name, _tag, _fmt, ...) ({               \
+    err_t _error;                                             \
+    _error.res = _name;                                       \
+    strncpy(_error.tag, _tag, MAX_TAG_SIZE - 1);              \
+    _error.tag[MAX_TAG_SIZE - 1] = '\0';                      \
+    snprintf(_error.desc, MAX_DESC_SIZE, _fmt, ##__VA_ARGS__); \
+    _error;                                                   \
 })
 /**
  * @brief Processes the result of a function and logs a message based on the result.
@@ -128,7 +127,7 @@ do {                                                          \
     if (_result.res != DEVICE_OK) {                           \
         LOGE(_result.tag, "Error in function '%s': %s", #fn, _result.desc); \
     } else {                                                  \
-        LOGI(_result.tag, "Success in function '%s'", #fn);   \
+        /* LOGI(_result.tag, "Success in function '%s'", #fn);  */ \
     }                                                         \
 } while (0)
 
