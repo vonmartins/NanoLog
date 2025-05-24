@@ -19,6 +19,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include "nlog_config.h"
 
 /* *****************************************************************************
@@ -101,9 +102,15 @@ typedef struct {
     #define LOGD(TAG, fmt, ...) (void)0
 #endif
 
-#define CREATE_ERROR(_name, _tag, _desc) \
-    ((err_t){.res = _name, .tag = _tag, .desc = _desc})
-
+#define CREATE_ERROR(_name, _tag, _desc) ({                     \
+    err_t _error;                                               \
+    _error.res = _name;                                         \
+    strncpy(_error.tag, _tag, MAX_TAG_SIZE - 1);                \
+    _error.tag[MAX_TAG_SIZE - 1] = '\0';                        \
+    strncpy(_error.desc, _desc, MAX_DESC_SIZE - 1);             \
+    _error.desc[MAX_DESC_SIZE - 1] = '\0';                      \
+    _error;                                                     \
+})
 /**
  * @brief Processes the result of a function and logs a message based on the result.
  *
