@@ -131,6 +131,16 @@ do {                                                          \
     }                                                         \
 } while (0)
 
+
+#define CHECK_AND_RETURN(fn) \
+    do { \
+        err_t result = (fn); \
+        if (result.res != DEVICE_OK) { \
+            LOGE(TAG, "Error in %s: %s", #fn, result.desc); \
+            return result; \
+        } \
+    } while (0)
+
 /* *****************************************************************************
  *                          Private Function Prototypes
  * *****************************************************************************

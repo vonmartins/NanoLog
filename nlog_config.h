@@ -35,7 +35,7 @@
  *
  * Set to 1 to output colored logs (if supported), or 0 for plain text.
  */
-#define USE_COLOR           0
+#define USE_COLOR           1
 
 /**
  * @brief Minimum log level filter.
