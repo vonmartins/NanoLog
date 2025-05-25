@@ -39,9 +39,38 @@ enum nlog_level {
 };
 
 typedef enum {
-    DEVICE_OK,
-    DEVICE_ERROR
+    DEVICE_OK = 0,         // Operación exitosa
+
+    // Errores de configuración y argumentos
+    INVALID_ARG,           // Argumento inválido
+    NULL_POINTER,          // Puntero nulo inesperado
+    OUT_OF_RANGE,          // Valor fuera de límites permitidos
+    NOT_INITIALIZED,       // Recurso usado sin haber sido inicializado
+    ALREADY_INITIALIZED,   // Intento de reinicializar
+
+    // Errores de sistema operativo (FreeRTOS)
+    OS_ERROR,              // Error general del RTOS
+    MUTEX_TAKE_FAILED,     // Falló al tomar mutex
+    MUTEX_CREATE_FAILED,   // Falló al crear mutex
+    QUEUE_FULL,            // Cola llena
+    TIMEOUT,               // Timeout al esperar recurso
+
+    // Errores de hardware/dispositivo
+    DEVICE_ERROR,          // Fallo genérico del dispositivo
+    SPI_ERROR,             // Fallo en operación SPI
+    I2C_ERROR,             // Fallo en operación I2C
+    GPIO_ERROR,            // Fallo en manipular GPIO
+    DMA_ERROR,             // Fallo en transferencia DMA
+    PERIPHERAL_BUSY,       // Periférico ocupado
+
+    // Estado o flujo
+    OPERATION_FAILED,      // Operación fallida sin causa clara
+    NOT_SUPPORTED,         // Función no implementada
+    NO_MEMORY,             // malloc/calloc falló
+    STATE_ERROR            // Estado del objeto no válido para la operación
+
 } dev_err;
+
 
 typedef struct {
     dev_err res;
