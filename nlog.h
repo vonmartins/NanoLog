@@ -170,6 +170,15 @@ do {                                                          \
         } \
     } while (0)
 
+
+#define CHECK_RETURN_ERROR(fn) ({                             \
+    err_t _result = (fn);                                     \
+    if (_result.res != DEVICE_OK) {                           \
+        LOGE(_result.tag, "Error: %s", _result.desc);         \
+    }                                                         \
+    _result.res;                                              \
+})
+
 /* *****************************************************************************
  *                          Private Function Prototypes
  * *****************************************************************************
