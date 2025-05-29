@@ -179,6 +179,12 @@ do {                                                          \
     _result.res;                                              \
 })
 
+/*
+ * @brief Macro to create an err_t with DEVICE_OK and empty tag/desc.
+ */
+
+#define OK_RESULT ((err_t){ .res = DEVICE_OK, .tag = "", .desc = "" })
+
 /* *****************************************************************************
  *                          Private Function Prototypes
  * *****************************************************************************
