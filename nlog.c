@@ -40,10 +40,10 @@ const char *new_execution_msg = "\n---------- NEW EXECUTION -----------\n\n";
 const char * get_level_color(const enum nlog_level level) 
 {
     switch(level) {
-        case ERROR:   return "\x1b[31m"; /* RED */ 
-        case WARNING: return "\x1b[33m"; /* YELLOW */
-        case INFO:    return "\x1b[34m"; /* GREEN */
-        case DEBUG:   return "\x1b[32m"; /* BLUE */
+        case NLOG_ERROR:   return "\x1b[31m"; /* RED */ 
+        case NLOG_WARNING: return "\x1b[33m"; /* YELLOW */
+        case NLOG_INFO:    return "\x1b[34m"; /* GREEN */
+        case NLOG_DEBUG:   return "\x1b[32m"; /* BLUE */
         default:      return "\x1b[0m";  /* DEFAULT */
     }
 }
@@ -59,10 +59,10 @@ const char * get_level_color(const enum nlog_level level)
 const char * get_level_string(const enum nlog_level level) 
 {
     switch(level) {
-        case ERROR:   return "E";
-        case WARNING: return "W";
-        case INFO:    return "I";
-        case DEBUG:   return "D";
+        case NLOG_ERROR:   return "E";
+        case NLOG_WARNING: return "W";
+        case NLOG_INFO:    return "I";
+        case NLOG_DEBUG:   return "D";
         default:      return "_";
     }
 }

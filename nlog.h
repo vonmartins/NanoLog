@@ -31,11 +31,11 @@
  * @brief Enumeration of log levels.
  */
 enum nlog_level {
-    NO_LEVEL, /*!< No specific logging level */
-    ERROR,    /*!< Error level logging */
-    WARNING,  /*!< Warning level logging */
-    INFO,     /*!< Info level logging */
-    DEBUG     /*!< Debug level logging */
+    NLOG_NO_LEVEL, /*!< No specific logging level */
+    NLOG_ERROR,    /*!< Error level logging */
+    NLOG_WARNING,  /*!< Warning level logging */
+    NLOG_INFO,     /*!< Info level logging */
+    NLOG_DEBUG     /*!< Debug level logging */
 };
 
 typedef enum {
@@ -90,7 +90,7 @@ typedef struct {
  * Otherwise, it expands to a no-operation.
  */
 #if ENABLE_ERROR_LOGS
-    #define LOGE(TAG, fmt, ...) nlog_messagev(ERROR, TAG, fmt, ##__VA_ARGS__)
+    #define LOGE(TAG, fmt, ...) nlog_messagev(NLOG_ERROR, TAG, fmt, ##__VA_ARGS__)
 #else
     #define LOGE(TAG, fmt, ...) (void)0
 #endif
@@ -102,7 +102,7 @@ typedef struct {
  * Otherwise, it expands to a no-operation.
  */
 #if ENABLE_WARNING_LOGS
-    #define LOGW(TAG, fmt, ...) nlog_messagev(WARNING, TAG, fmt, ##__VA_ARGS__)
+    #define LOGW(TAG, fmt, ...) nlog_messagev(NLOG_WARNING, TAG, fmt, ##__VA_ARGS__)
 #else
     #define LOGW(TAG, fmt, ...) (void)0
 #endif
@@ -114,7 +114,7 @@ typedef struct {
  * Otherwise, it expands to a no-operation.
  */
 #if ENABLE_INFO_LOGS
-    #define LOGI(TAG, fmt, ...) nlog_messagev(INFO, TAG, fmt, ##__VA_ARGS__)
+    #define LOGI(TAG, fmt, ...) nlog_messagev(NLOG_INFO, TAG, fmt, ##__VA_ARGS__)
 #else
     #define LOGI(TAG, fmt, ...) (void)0
 #endif
@@ -126,7 +126,7 @@ typedef struct {
  * Otherwise, it expands to a no-operation.
  */
 #if ENABLE_DEBUG_LOGS
-    #define LOGD(TAG, fmt, ...) nlog_messagev(DEBUG, TAG, fmt, ##__VA_ARGS__)
+    #define LOGD(TAG, fmt, ...) nlog_messagev(NLOG_DEBUG, TAG, fmt, ##__VA_ARGS__)
 #else
     #define LOGD(TAG, fmt, ...) (void)0
 #endif

@@ -2,3 +2,5 @@
 LogOutput/
 Examples/
 /build
+CMakeFiles/
+CMakeCache.txt
