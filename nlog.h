@@ -209,4 +209,17 @@ do {                                                          \
  */
 void nlog_messagev(const enum nlog_level level, const char *TAG, const char *fmt, ...);
 
+/**
+ * @brief Assign the UART handle used by the UART backend (NLOG_OUTPUT == 1).
+ *
+ * Call once before emitting any log, typically at the start of Device_Init.
+ * The handle is passed as void* to keep this header free of HAL dependencies.
+ *
+ * @param huart Pointer to an initialised UART_HandleTypeDef.
+ */
+void nlog_set_uart(void *huart);
+
+/** Convenience macro — assign UART handle from application code. */
+#define NLOG_UART_INIT(huart) nlog_set_uart(huart)
+
 #endif // __NLOG__

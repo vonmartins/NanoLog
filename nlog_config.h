@@ -85,14 +85,14 @@
  *   3 = Memory Buffer
  *   4 = Network
  */
-#define NLOG_OUTPUT         0
+#define NLOG_OUTPUT         1
 
 /**
  * @brief Enable or disable timestamps in log messages.
  *
  * Set to 1 to include a timestamp in each log message, or 0 to omit.
  */
-#define ENABLE_TIMESTAMP    1
+#define ENABLE_TIMESTAMP    0
 
 /* *****************************************************************************
  *                          File Output Settings

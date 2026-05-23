@@ -16,14 +16,24 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
-// #include <direct.h>
-// #include <errno.h>
+
+#if NLOG_OUTPUT == 1
+    #include "stm32f4xx_hal.h"
+#endif
 
 #if ENABLE_TIMESTAMP
     #include <time.h>
 #endif
 
 const char *new_execution_msg = "\n---------- NEW EXECUTION -----------\n\n";
+
+#if NLOG_OUTPUT == 1
+static void *s_uart_handle = NULL;
+
+void nlog_set_uart(void *huart) {
+    s_uart_handle = huart;
+}
+#endif
 
 // *****************************************************************************
 //                        Private Definitions and Functions
@@ -81,7 +91,11 @@ void nlog_backend_output(const char *msg)
         /* Terminal output */
         printf("%s", msg);
     #elif NLOG_OUTPUT == 1
-        /* UART output – TO DO */
+        /* UART output */
+        if (s_uart_handle != NULL) {
+            HAL_UART_Transmit((UART_HandleTypeDef *)s_uart_handle,
+                              (uint8_t *)msg, (uint16_t)strlen(msg), 100);
+        }
     #elif NLOG_OUTPUT == 2
         /* File output: Append the log message to a file located in LOG_FILE_OUTPUT_PATH */
         char full_path[256];
