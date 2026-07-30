@@ -85,7 +85,9 @@ const char * get_level_string(const enum nlog_level level)
  *
  * @param msg The final log message to output.
  */
-void nlog_backend_output(const char *msg) 
+/* Weak so the application can override the output sink (e.g. tee to USB CDC)
+ * without editing this file. Default keeps the configured NLOG_OUTPUT backend. */
+__attribute__((weak)) void nlog_backend_output(const char *msg)
 {
     #if NLOG_OUTPUT == 0
         /* Terminal output */
