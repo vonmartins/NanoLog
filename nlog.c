@@ -25,7 +25,7 @@
     #include <time.h>
 #endif
 
-const char *new_execution_msg = "\n---------- NEW EXECUTION -----------\n\n";
+const char *new_execution_msg = "\r\n---------- NEW EXECUTION -----------\r\n\r\n";
 
 #if NLOG_OUTPUT == 1
 static void *s_uart_handle = NULL;
@@ -165,18 +165,18 @@ void nlog_messagev(const enum nlog_level level, const char *TAG, const char *fmt
     /* Format the final message based on the available options */
     #if ENABLE_TIMESTAMP
         #if USE_COLOR
-            snprintf(final_msg, sizeof(final_msg), "%s[%u] %s : [%s] [%s] %s\x1b[0m\n", 
+            snprintf(final_msg, sizeof(final_msg), "%s[%u] %s : [%s] [%s] %s\x1b[0m\r\n",
                      color, log_id, get_level_string(level), TAG, timestamp, buffer);
         #else
-            snprintf(final_msg, sizeof(final_msg), "[%u] %s : [%s] [%s] %s\n", 
+            snprintf(final_msg, sizeof(final_msg), "[%u] %s : [%s] [%s] %s\r\n",
                      log_id, get_level_string(level), TAG, timestamp, buffer);
         #endif
     #else
         #if USE_COLOR
-            snprintf(final_msg, sizeof(final_msg), "%s[%u] %s : [%s] %s\x1b[0m\n", 
+            snprintf(final_msg, sizeof(final_msg), "%s[%u] %s : [%s] %s\x1b[0m\r\n",
                      color, log_id, get_level_string(level), TAG, buffer);
         #else
-            snprintf(final_msg, sizeof(final_msg), "[%u] %s : [%s] %s\n", 
+            snprintf(final_msg, sizeof(final_msg), "[%u] %s : [%s] %s\r\n",
                      log_id, get_level_string(level), TAG, buffer);
         #endif
     #endif
